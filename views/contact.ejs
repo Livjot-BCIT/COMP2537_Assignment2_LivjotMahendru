@@ -1,10 +1,3 @@
-<%- include("templates/header") %> 
-    email address:
-    <form action='/submitEmail' method='post'>
-        <input name='email' type='text' placeholder='email'>
-        <button>Submit</button>
-    </form>
-    <% if (missing) { %>
-        <br> email is required
-    <% } %>  
-<%- include("templates/footer") %> 
+<%- include('patials/header') %>
+    <h1> This is the contact page.</h1>
+    <%- include('partials/footer') %>

@@ -1,8 +1,27 @@
-<%- include("templates/header") %> 
-    log in
-    <form action='/loggingin' method='post'>
-    <input name='username' type='text' placeholder='username'>
-    <input name='password' type='password' placeholder='password'>
-    <button>Submit</button>
-    </form>
-<%- include("templates/footer") %> 
+<%- include('partials/header', { pageTitle: pageTitle, isAuthenticated: false, name: null }) %>
+
+    <h2>
+        <%= pageTitle %>
+    </h2>
+
+    <% if (typeof error !=='undefined' && error) { %>
+        <p class="error-message">
+            <%= error %>
+        </p>
+        <% } %>
+
+            <form action="/loginSubmit" method="post">
+                <div>
+                    <label for="email">Email:</label>
+                    <input id="email" name="email" type="email" placeholder="your.email@example.com" required>
+                </div>
+                <div>
+                    <label for="password">Password:</label>
+                    <input id="password" name="password" type="password" placeholder="Your Password" required>
+                </div>
+                <br>
+                <button type="submit">Log In</button>
+            </form>
+            <p>Don't have an account? <a href="/signup">Sign Up</a></p>
+
+            <%- include('partials/footer') %>
