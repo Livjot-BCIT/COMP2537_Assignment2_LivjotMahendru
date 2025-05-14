@@ -1,0 +1,5 @@
+<ol>
+    <% for (let i=0, i < users.length; i++) { %>
+        <%- include('partials/user', { user: users[i]})} %>
+            <% } %>
+</ol>

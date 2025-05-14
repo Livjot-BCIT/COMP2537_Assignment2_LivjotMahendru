@@ -1,0 +1,37 @@
+<!-- <li> <%= user.username %> </li> -->
+
+<tr>
+  <td><%= user.name %></td>
+  <td><%= user.email %></td>
+  <td>
+    <span
+      class="badge <%= user.user_type === 'admin' ? 'bg-success' : 'bg-secondary' %>"
+    >
+      <%= user.user_type %>
+    </span>
+  </td>
+  <td>
+    <% if (user.user_type === 'user' ) { %>
+    <form
+      action="/admin/promote/<%= user._id %>"
+      method="post"
+      style="display: inline"
+    >
+      <button type="submit" class="btn btn-sm btn-warning">
+        Promote to Admin
+      </button>
+    </form>
+    <% } else { %> <% if (user._id.toString() !==currentUserId) { /* Admin
+    cannot demote themselves via this button */ %>
+    <form
+      action="/admin/demote/<%= user._id %>"
+      method="post"
+      style="display: inline"
+    >
+      <button type="submit" class="btn btn-sm btn-info">Demote to User</button>
+    </form>
+    <% } else { %>
+    <span class="text-muted fst-italic"> (Self) </span>
+    <% } %> <% } %>
+  </td>
+</tr>

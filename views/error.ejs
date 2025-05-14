@@ -1,0 +1,12 @@
+<%- include('partials/header', { pageTitle: pageTitle, isAuthenticated:
+isAuthenticated, name: name }) %>
+
+<div class="container mt-4">
+  <h1><%= message %></h1>
+  <% if (errorCode) { %>
+  <p>Error Code: <%= errorCode %></p>
+  <% } %>
+  <a href="/" class="btn btn-primary">Go Back Home</a>
+</div>
+
+<%- include('partials/footer') %>
