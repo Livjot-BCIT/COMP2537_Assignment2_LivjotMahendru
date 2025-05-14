@@ -1,33 +1,35 @@
 <%- include('partials/header', { pageTitle: pageTitle, isAuthenticated: false, name: null }) %>
 
-    <h2>
-        <%= pageTitle %>
-    </h2>
+<div class="container d-flex flex-column justify-content-center align-items-center" style="min-height: 70vh;">
+  <h2 class="mb-4 text-center">
+    <%= pageTitle %>
+  </h2>
 
-    <% if (typeof error !=='undefined' && error) { %>
-        <p class="error-message">
-            <%= error %>
-        </p>
-        <% } %>
+  <% if (typeof error !== 'undefined' && error) { %>
+    <p class="text-danger mb-3 text-center">
+      <%= error %>
+    </p>
+  <% } %>
 
-            <form action="/signupSubmit" method="post">
-                <div>
-                    <label for="name">Name:</label>
-                    <input id="name" name="name" type="text" placeholder="Your Full Name"
-                        value="<%= typeof formData !== 'undefined' && formData.name ? formData.name : '' %>" required>
-                </div>
-                <div>
-                    <label for="email">Email:</label>
-                    <input id="email" name="email" type="email" placeholder="your.email@example.com"
-                        value="<%= typeof formData !== 'undefined' && formData.email ? formData.email : '' %>" required>
-                </div>
-                <div>
-                    <label for="password">Password:</label>
-                    <input id="password" name="password" type="password" placeholder="Create a Password" required>
-                </div>
-                <br>
-                <button type="submit">Sign Up</button>
-            </form>
-            <p>Already have an account? <a href="/login">Log In</a></p>
+  <form action="/signupSubmit" method="post" class="w-100" style="max-width: 400px;">
+    <div class="mb-3">
+      <label for="name" class="form-label">Name:</label>
+      <input id="name" name="name" type="text" class="form-control" placeholder="Your Full Name"
+        value="<%= typeof formData !== 'undefined' && formData.name ? formData.name : '' %>" required>
+    </div>
+    <div class="mb-3">
+      <label for="email" class="form-label">Email:</label>
+      <input id="email" name="email" type="email" class="form-control" placeholder="your.email@example.com"
+        value="<%= typeof formData !== 'undefined' && formData.email ? formData.email : '' %>" required>
+    </div>
+    <div class="mb-4">
+      <label for="password" class="form-label">Password:</label>
+      <input id="password" name="password" type="password" class="form-control" placeholder="Create a Password" required>
+    </div>
+    <button type="submit" class="btn btn-success w-100">Sign Up</button>
+  </form>
 
-            <%- include('partials/footer') %>
+  <p class="mt-3">Already have an account? <a href="/login">Log In</a></p>
+</div>
+
+<%- include('partials/footer') %>

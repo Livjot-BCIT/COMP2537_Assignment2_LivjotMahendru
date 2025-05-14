@@ -107,10 +107,10 @@ async function connectToDBAndStartServer() {
 
             if (!req.session.user || !req.session.user.user_type) {
                 console.error('ERROR: User session object or user_type is missing!', req.session);
-                return res.status(500).render('error', {
+                return res.status(403).render('error', {
                     pageTitle: "Session Error",
                     message: "Your session data seems to be corrupted. Please log in again.",
-                    errorCode: 500,
+                    errorCode: 403,
                     isAuthenticated: req.session.isAuthenticated,
                     currentUser: req.session.user
                 });
@@ -186,9 +186,10 @@ async function connectToDBAndStartServer() {
                 res.redirect('/members');
             } catch (err) {
                 console.error("Signup error:", err);
-                res.status(500).render('error', {
+                res.status(403).render('error', {
                     pageTitle: "Signup Error",
                     message: "An internal server error occurred during signup. Please try again later.",
+					errorCode: 403,
                 });
             }
         });
@@ -232,9 +233,10 @@ async function connectToDBAndStartServer() {
                 }
             } catch (err) {
                 console.error('Login database/bcrypt error: ', err);
-                res.status(500).render('error', {
+                res.status(403).render('error', {
                     pageTitle: "Login Error",
                     message: "An internal server error occurred during login. Please try again later.",
+					errorCode: 403,
                     isAuthenticated: req.session.isAuthenticated,
                     name: req.session.name
                 });
@@ -253,8 +255,9 @@ async function connectToDBAndStartServer() {
                 });
             } catch (err) {
                 console.error('Admin page error: ', err);
-                res.status(500).render('error', {
+                res.status(403).render('error', {
                     pageTitle: 'Admin error',
+					errorCode: 403,
                     message: 'Not able to load admin data',
                     isAuthenticated: req.session.isAuthenticated,
                     name: req.session.name
@@ -292,7 +295,7 @@ async function connectToDBAndStartServer() {
 
 
         app.get('/members', requireAuth, (req, res) => {
-            const images = ['IMG_0140.JPG', 'IMG_0518.jpg', 'IMG_0671.jpg', 'IMG_1270.jpg', 'IMG_1598.JPG', 'IMG_2242.JPG', 'IMG_4919.PNG'];
+            const images = ['fluffy.gif', 'socks.gif', 'chapperson.webp', 'hydreigon.webp', 'samar.webp', 'ryder.webp'];
             const shuffledImages = images.sort(() => Math.random() - 0.5);
             res.render('members', {
                 pageTitle: "Members Area",
@@ -311,24 +314,6 @@ async function connectToDBAndStartServer() {
             });
         });
 
-        // app.use(async (req, res, next) => {
-        //     res.locals.isAuthenticated = req.session.isAuthenticated;
-        //     if (req.session.isAuthenticated && req.session.user) {
-        //         const user = await userCollection.findOne({ _id: req.session.user.id });
-        //         if (user) {
-        //             req.session.user = {
-        //                 id: user._id,
-        //                 name: user.name,
-        //                 email: user.email,
-        //                 user_type: user.user_type
-        //             };
-        //         }
-        //     }
-        //     res.locals.currentUser = req.session.user;
-        //     next();
-        // });
-
-
         app.use((req, res, next) => {
             res.status(404).render('404', {
                 pageTitle: "Page Not Found",
@@ -337,11 +322,11 @@ async function connectToDBAndStartServer() {
             });
         });
 
-
         app.use((err, req, res, next) => {
             console.error("Unhandled error:", err.stack);
-            res.status(500).render('error', {
+            res.status(403).render('error', {
                 pageTitle: "Server Error",
+				errorCode: 403,
                 message: "Something went wrong on our end. Please try again later.",
                 isAuthenticated: req.session.isAuthenticated,
                 name: req.session.name

@@ -1,23 +1,28 @@
 <%- include('partials/header', { pageTitle: pageTitle, messages: messages }) %>
 
-    <h2 class="mb-4">User Management</h2>
+<div class="container py-5">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="text-primary mb-0">User Management</h2>
+    <span class="badge bg-secondary">Total Users: <%= users.length %></span>
+  </div>
 
-    <div class="table-responsive">
-        <table class="table table-striped table-hover">
-            <thead class="table-dark">
-                <tr>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>User Type</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% users.forEach(user=> { %>
-                    <%- include('partials/user', { user: user, currentUserId: currentUser.id.toString() }) %>
-                        <% }); %>
-            </tbody>
-        </table>
-    </div>
+  <div class="table-responsive shadow-sm rounded">
+    <table class="table table-striped table-hover align-middle mb-0 border">
+      <thead class="table-dark text-center">
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Email</th>
+          <th scope="col">User Type</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody class="text-center">
+        <% users.forEach(user => { %>
+          <%- include('partials/user', { user: user, currentUserId: currentUser.id.toString() }) %>
+        <% }); %>
+      </tbody>
+    </table>
+  </div>
+</div>
 
-    <%- include('partials/footer') %>
+<%- include('partials/footer') %>
